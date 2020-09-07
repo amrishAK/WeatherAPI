@@ -32,7 +32,7 @@ async function PushCurrentTemperature(document)
         console.log(document);
     }
     catch (exception) {
-        
+
         throw exception;
     }
     finally {
@@ -70,7 +70,7 @@ function TemperatureInCovilha()
                 document["City"] = data.name;
                 document['Country'] = data.sys.country;
                 document["TimeStamp"] = timeStamp;
-                document["Unit"] = "°C";
+                document["Unit"] = "celsius";
                 
                 //push to DB
                 await PushCurrentTemperature(document);

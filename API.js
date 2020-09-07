@@ -104,7 +104,7 @@ var CovilhaCurrentTemperature = function TemperatureInCovilha(req, response, nex
                 document["City"] = data.name;
                 document['Country'] = data.sys.country;
                 document["TimeStamp"] = timeStamp;
-                document["Unit"] = "°C";
+                document["Unit"] = "celsius";
 
                 
                 //push to DB
