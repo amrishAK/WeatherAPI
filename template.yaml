@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  testProject
+
+  Sample SAM Template for Weather API
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  CurrentTemperatureFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: CurrentTemperatureLambda/
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      Events:
+        WeatherAPI:
+          Type: Api 
+          Properties:
+            Path: /currenttempincovilha
+            Method: get
+  AverageTemperatureFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: AverageTemperatureLambda/
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      Events:
+        WeatherAPI:
+          Type: Api 
+          Properties:
+            Path: /avgtempinsfax
+            Method: get
