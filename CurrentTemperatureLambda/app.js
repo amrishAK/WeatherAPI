@@ -10,6 +10,8 @@ var responseJSON = {"StatusCode" : "", "StatusDescription" : "", "data" : {}};
 var openWeatherKey = 'bda303f1f07a96b6893a6ea2c9dbf40f';
 var mongoConnectionString = "mongodb+srv://amrishAK:Su0q5jF6IlvEE4F8@testcluster.w1lq8.mongodb.net/test?retryWrites=true&w=majority";
 
+
+// Data Access Function
 async function PushCurrentTemperature(document)
 {
     let mongoClient;
@@ -24,7 +26,7 @@ async function PushCurrentTemperature(document)
         let result = await collection.countDocuments(query);
 
         if (result == 0) {
-            await collection.insertOne(document);
+            await collection.insertOne(document,{forceServerObjectId:true});
         }
 
         console.log(document);
@@ -37,6 +39,8 @@ async function PushCurrentTemperature(document)
     }
 }
 
+
+// Business Logic 
 function TemperatureInCovilha()
 {
     return new Promise((resolve, reject) => { 
@@ -83,11 +87,16 @@ function TemperatureInCovilha()
 }
 
 
+// Endpoint
 exports.lambdaHandler = async (event, context) => {
 
     try {
         responseJSON['data'] = await TemperatureInCovilha();
-    } catch (exception) {
+        responseJSON['StatusCode'] = "200";
+        responseJSON['StatusDescription'] = "Sucess";        
+    } 
+    catch (exception) {
+    
         responseJSON['StatusCode'] = "500";
         responseJSON['StatusDescription'] = "Internal exception due to " + exception;
     }

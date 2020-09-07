@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  testProject
+  Weather API
 
   Sample SAM Template for Weather API
 
@@ -34,3 +34,10 @@ Resources:
           Properties:
             Path: /avgtempinsfax
             Method: get
+
+Outputs:
+  WeatherAPI:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/currenttempincovilha"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/avgtempinsfax"
+
