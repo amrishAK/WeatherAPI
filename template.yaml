@@ -36,8 +36,10 @@ Resources:
             Method: get
 
 Outputs:
-  WeatherAPI:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+  CurrentTemperature:
+    Description: "API Gateway endpoint URL for Prod stage for Current Temperature action"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/currenttempincovilha"
+  AverageTemperature:
+    Description: "API Gateway endpoint URL for Prod stage for Average Temperature action"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/avgtempinsfax"
 

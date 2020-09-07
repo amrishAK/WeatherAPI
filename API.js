@@ -4,7 +4,7 @@ var app = express();
 var request = require("request");
 var mongoDb = require('mongodb');
 
-//response
+//response variable
 var responseJSON = {"StatusCode" : "", "StatusDescription" : "", "data" : {}};
 
 
@@ -14,7 +14,7 @@ var openWeatherKey = 'bda303f1f07a96b6893a6ea2c9dbf40f';
 var mongoConnectionString = "mongodb+srv://amrishAK:Su0q5jF6IlvEE4F8@testcluster.w1lq8.mongodb.net/test?retryWrites=true&w=majority";
 
 
-// Data Access Functions ------
+// Data Access Functions 
 
 async function PushCurrentTemperature(document)
 {
@@ -30,18 +30,21 @@ async function PushCurrentTemperature(document)
         let result = await collection.countDocuments(query);
 
         if (result == 0){
+
             await collection.insertOne(document,{forceServerObjectId:true});
             console.log("document inserted!!");
-            
         }
         else{
+
             console.log("docment already exists!!");
         }
     }
-    catch (ex){
-        throw ex;
+    catch (exception){
+
+        throw exception;
     }
     finally{
+
         mongoClient.close();
     }
 }
@@ -57,13 +60,16 @@ async function GetAverageTemperature()
         let collection = mongoClient.db("WeatherAPI").collection("AverageTemperature");
 
         let query = {"City" : "Sfax", "Month" : "June" };
+        
         return await collection.findOne(query, {projection:{_id:0}});
 
     }
-    catch (ex){
-        throw ex;
+    catch (exception){
+
+        throw exception;
     }
     finally{
+
         mongoClient.close();
     }
 }
@@ -84,14 +90,12 @@ var CovilhaCurrentTemperature = function TemperatureInCovilha(req, response, nex
             //error response 
             responseJSON['StatusCode'] = "503";
             responseJSON['StatusDescription'] = "Service unavailable due to open weather map api, try again later";
-            response.send(responseJSON);
         }
 
             // sucess response
             try {
          
                 let data = JSON.parse(body);
-
                 let timeStamp = data.dt;
                 let document = {}
 
@@ -112,18 +116,15 @@ var CovilhaCurrentTemperature = function TemperatureInCovilha(req, response, nex
                 responseJSON['StatusCode'] = "200";
                 responseJSON['StatusDescription'] = "Sucess";
                 responseJSON['data'] = document;
-
-                response.send(responseJSON);
             }
             catch(exception) {
 
                 responseJSON['StatusCode'] = "500";
                 responseJSON['StatusDescription'] = "Internal exception due to " + exception;
-                response.send(responseJSON);
             }
-        });
 
-        
+            response.send(responseJSON);
+        });  
 }
 
 
@@ -131,23 +132,18 @@ var sfaxAverageTemperature = async function  AvgTemperatureInSfax(req, response,
     
     try {
 
-        let data = await GetAverageTemperature();
-        let avgTemperature = 0;
         responseJSON['StatusCode'] = "200";
         responseJSON['StatusDescription'] = "Sucess";
-        responseJSON['data'] = data;
-        // responseJSON['data']['AvgerageTemperature'] = avgTemperature;
-        // responseJSON['data']['City'] = "Sfax";
-        // responseJSON['data']['Country'] = "Tunisia";
-        // responseJSON['data']['Month'] = "June";
-        response.send(responseJSON);
+        responseJSON['data'] = await GetAverageTemperature();
+        
     }
     catch (exception) {
 
         responseJSON['StatusCode'] = "500";
         responseJSON['StatusDescription'] = "Internal exception due to " + exception;
-        response.send(responseJSON);
     }
+
+    response.send(responseJSON);
 }
 
 var home = function(req,res){

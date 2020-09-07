@@ -32,9 +32,11 @@ async function PushCurrentTemperature(document)
         console.log(document);
     }
     catch (exception) {
+        
         throw exception;
     }
     finally {
+
         mongoClient.close();
     }
 }
@@ -61,10 +63,8 @@ function TemperatureInCovilha()
             try {
         
                 let data = JSON.parse(body);
-
                 let timeStamp = data.dt;
                 let document = {}
-
 
                 document["CurrentTemperature"] = data.main.temp;
                 document["City"] = data.name;
@@ -80,6 +80,7 @@ function TemperatureInCovilha()
                 resolve(document);
             }
             catch(exception) {
+
                 throw exception;
             }
         });

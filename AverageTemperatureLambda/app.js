@@ -1,5 +1,4 @@
 // import modules
-const request = require('request');
 const mongoDb = require('mongodb');
 
 // response variables
@@ -26,10 +25,12 @@ async function GetAverageTemperature()
 
         return await collection.findOne(query, {projection:{_id:0}});
     }
-    catch (ex){
-        throw ex;
+    catch (exception){
+
+        throw exception;
     }
     finally{
+        
         mongoClient.close();
     }
 }
