@@ -9,9 +9,9 @@ var responseJSON = {"StatusCode" : "", "StatusDescription" : "", "data" : {}};
 
 
 // keys
-var openWeatherKey = 'bda303f1f07a96b6893a6ea2c9dbf40f';
+var openWeatherKey = '****';
 
-var mongoConnectionString = "mongodb+srv://amrishAK:Su0q5jF6IlvEE4F8@testcluster.w1lq8.mongodb.net/test?retryWrites=true&w=majority";
+var mongoConnectionString = "****";
 
 
 // Data Access Functions 
